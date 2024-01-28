@@ -1,36 +1,41 @@
-import time
-print('формула кабачка')
-time.sleep(6)
-print('земля = 200га, ежедневная порция воды = 4000 литров,')
-time.sleep(1)
-print('семена отборные кабачка - 1 штука, длительность светого дня - 23 часа')
-time.sleep(1)
-print('сколько земли возьмете?')
-time.sleep(1)
-ze = int(input())
-time.sleep(1)
-print('и сколько воды,семян соответсвенно')
-time.sleep(1)
-vo = int(input())
-ce = int(input())
-time.sleep(1)
-print('ну и какой будет световой день')
-time.sleep(1)
-cve = int(input())
+import telebot
+bot = telebot.TeleBot('6331719854:AAEF9o8sf1U64jKGCBtMoeY1Gj9YxbNooGw')
 
-if ze == 200 and vo == 4000 and ce == 1 and cve == 23:
-    time.sleep(1)
-    print('у вас вырастет прекрасный кабачок! Подождите минутку')
-    time.sleep(60)
-    print('у вас вырос прккрасный кабачок, который обрел разум')
-elif ze == 200 and vo == 4000 and ce == 1 and cve == 25:
-    print('к-как вы узнали секрет который был в тайне 3944 лет, кабачок вырос и полетел покарять планеты и делать их прекрасными')
-else:
-    print('кабачок сгнил, вы не так все сделали')
+@bot.message_handler(commands=['start', 'alo'])
+def main(msg):
+    knopka = telebot.types.InlineKeyboardMarkup(row_width=1)
+    but = telebot.types.InlineKeyboardButton('one', callback_data='one')
+    but2 = telebot.types.InlineKeyboardButton('two', callback_data='two')
+    knopka.add(but, but2)
 
-time.sleep(6)
-print('земля = 200га, ежедневная порция воды = 4000 литров,')
-time.sleep(1)
-print('семена отборные кабачка - 1 штука, длительность светого дня - 23 часа')
-time.sleep(1)
-print('сколько земли возьмете?')
+    bot.send_message(msg.chat.id, 'выбирай оне или ту', reply_markup=knopka)
+
+@bot.callback_query_handler(func=lambda call:True)
+def callback(call):
+    if call.message:
+        if call.data == 'one':
+            bot.send_message(call.message.chat.id, 'ааа')
+        if call.data == 'two':
+            bot.send_message(call.message.chat.id, 'ffffа')
+
+
+bot.infinity_polling()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
